@@ -1,6 +1,4 @@
-<?php
-
-defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Home extends CI_Controller {
 
@@ -8,6 +6,9 @@ class Home extends CI_Controller {
     {
         parent::__construct();
 		$this->load->model('Usuarios_model', 'usuarios');
+        header('Access-Control-Allow-Origin: *');
+        header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
+        header('Access-Control-Allow-Methods: GET, POST, PUT');
     }
 
 	public function index() {
@@ -57,10 +58,6 @@ class Home extends CI_Controller {
     public function autenticate() {
 
         $dados_form = $this->input->post();
-
-        // Regras de Validação
-        $this->form_validation->set_rules('login', 'login', 'trim|required|min_length[3]');
-        $this->form_validation->set_rules('senha','senha','trim|required|min_length[8]');
 
         if ( !empty($dados_form['login']) && !empty($dados_form['senha']) ) {
 
