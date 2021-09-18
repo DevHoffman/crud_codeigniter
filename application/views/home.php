@@ -19,7 +19,7 @@
 
                 <div class="contact-login col-8">
 
-                    <?php echo form_open('home/autenticate', $atributos_form_login) ?>
+                    <?php echo form_open('home/autenticate2', $atributos_form_login) ?>
 
                         <fieldset>
         
@@ -101,7 +101,7 @@
 				$.ajax({
 
 					type: "POST",
-					url: "home/autenticate",
+					url: "home/autenticate2",
 					data: $(form).serialize(),
 					beforeSend: function() {
 

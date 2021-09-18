@@ -8,6 +8,8 @@ class Home extends CI_Controller {
     {
         parent::__construct();
 		$this->load->model('Usuarios_model', 'usuarios');
+        header('Access-Control-Allow-Origin: http://localhost:3000');
+        header("Access-Control-Allow-Headers: *");
     }
 
 	public function index() {
@@ -66,6 +68,20 @@ class Home extends CI_Controller {
 
             $dados_form = $this->usuarios->autenticate($dados_form['login'], $dados_form['senha']);
 
+            $this->output->set_content_type('application/json')->set_output(json_encode($dados_form));
+        }
+    }
+
+    public function autenticate2() {
+
+        $dados_form = $this->input->post();
+
+        if ( !empty($dados_form['login']) && !empty($dados_form['senha']) ) {
+
+            $dados_form = $this->usuarios->autenticate2($dados_form['login'], $dados_form['senha']);
+            $this->output->set_content_type('application/json')->set_output(json_encode($dados_form));
+        }
+        else {
             $this->output->set_content_type('application/json')->set_output(json_encode($dados_form));
         }
     }

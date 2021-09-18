@@ -44,6 +44,42 @@ class Usuarios_model extends CI_Model {
         }
     }
 
+    public function autenticate2($login, $senha) {
+
+        $query = $this->db->get_where('tbl_usuarios', array('Login' => $login), 1, 0);
+        if ( $query->num_rows() == 1 ){
+            $hash_senha_banco = $query->result_array()[0]['Senha'];
+            if(password_verify($senha, $hash_senha_banco)) {
+                $query = $this->db->get_where('tbl_usuarios', array('Login' => $login, 'Senha' => $hash_senha_banco), 1, 0);
+                if ( $query->num_rows() == 1 ){
+                    $dados_autenticacao = array(
+                        'Ip'            =>      $_SERVER['REMOTE_ADDR'],
+                        'Logged_in'     =>      TRUE,
+                        'CodiUsuario'   =>      $query->result_array()[0]['CodiUsuario']
+                    );
+                    $this->session->set_userdata($dados_autenticacao); // Pega dados para Sessão
+
+                    $dados_pessoais = array(
+                        'Log'           =>      'Usuário Autenticado',
+                        'CodiUsuario'   =>      $query->result_array()[0]['CodiUsuario'],
+                        'Ip'            =>      $_SERVER['REMOTE_ADDR']
+                    );
+                    $this->db->insert('tbl_logs', $dados_pessoais);
+                    return 1;
+                }
+                else { 
+                    return 'Senha Incorreta';
+                }   
+            }
+            else {
+                return 'Senha Incorreta';
+            }
+        }
+        else {
+            return 'Login Incorreto';
+        }
+    }
+
     public function create_account($login, $senha, $senha2, $name, $email, $admin) { // Conta não existe, devo inserir
         if ( $senha == $senha2 ){
 
