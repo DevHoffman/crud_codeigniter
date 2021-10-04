@@ -8,6 +8,8 @@ class Cadastrar extends CI_Controller {
 		parent::__construct();
 		// $this->load->model('Selects_model', 'select');
         $this->load->model('Usuarios_model', 'usuario');
+        header('Access-Control-Allow-Origin: http://localhost:3000');
+        header("Access-Control-Allow-Headers: *");
 	}
 
 	public function index() {
