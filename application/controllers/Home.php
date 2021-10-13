@@ -57,8 +57,8 @@ class Home extends CI_Controller {
 	}
 
     public function autenticate() {
-
-        $dados_form = $this->input->post();
+        // $dados_form = $this->input->post();
+        $dados_form = json_decode(file_get_contents('php://input'), true); // Toda vez que receber como json
 
         // Regras de Validação
         $this->form_validation->set_rules('login', 'login', 'trim|required|min_length[3]');
@@ -68,7 +68,15 @@ class Home extends CI_Controller {
 
             $dados_form = $this->usuarios->autenticate($dados_form['login'], $dados_form['senha']);
 
-            $this->output->set_content_type('application/json')->set_output(json_encode($dados_form));
+            $data = [
+                "userdata" => $dados_form,
+                "sessionData" => $this->session->userdata()
+            ];
+
+            //$this->output->set_content_type('application/json')->set_output(json_encode(["userdata" => $dados_form, "sessionData" => $this->session->get_user_data()]));
+            $this->output->set_status_header(200)
+                            ->set_content_type('application/json')
+                            ->set_output(json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
         }
     }
 

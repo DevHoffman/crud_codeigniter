@@ -19,9 +19,10 @@ class Usuarios_model extends CI_Model {
 					$dados_autenticacao = array(
 						'Ip' 			=> 		$_SERVER['REMOTE_ADDR'],
 						'Logged_in' 	=> 		TRUE,
-						'CodiUsuario'	=>		$query->result_array()[0]['CodiUsuario']
+						'CodiUsuario'	=>		$query->result_array()[0]['CodiUsuario'],
+						'Usuario'	=>		$query->result_array()[0]['Usuario']
 					);
-					$this->session->set_userdata($dados_autenticacao); // Pega dados para Sessão
+                    $dados_autenticacao = $this->session->set_userdata($dados_autenticacao); // Pega dados para Sessão
 
                 	$dados_pessoais = array(
                 		'Log' 			=> 		'Usuário Autenticado',
@@ -29,7 +30,8 @@ class Usuarios_model extends CI_Model {
 						'Ip' 			=>	 	$_SERVER['REMOTE_ADDR']
 					);
 					$this->db->insert('tbl_logs', $dados_pessoais);
-					return 1;
+
+					return json_encode($dados_autenticacao);
                 }
                 else { 
                     return 'Senha Incorreta';
