@@ -20,7 +20,10 @@ class Usuarios_model extends CI_Model {
 						'Ip' 			=> 		$_SERVER['REMOTE_ADDR'],
 						'Logged_in' 	=> 		TRUE,
 						'CodiUsuario'	=>		$query->result_array()[0]['CodiUsuario'],
-						'Usuario'	=>		$query->result_array()[0]['Usuario']
+                        'Foto'	=>		$query->result_array()[0]['Foto'],
+                        'CodiNivelAcesso'	=>		$query->result_array()[0]['CodiNivelAcesso'],
+						'Usuario'	=>		$query->result_array()[0]['Usuario'],
+                        'Email'	=>		$query->result_array()[0]['Email']
 					);
                     $dados_autenticacao = $this->session->set_userdata($dados_autenticacao); // Pega dados para Sessão
 
