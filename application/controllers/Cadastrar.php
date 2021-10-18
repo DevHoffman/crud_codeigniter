@@ -88,13 +88,6 @@ class Cadastrar extends CI_Controller {
 
         $dados_form = $this->input->post();
 
-        // Regras de Validação
-        $this->form_validation->set_rules('name', 'name', 'trim|required|min_length[3]');
-        $this->form_validation->set_rules('login', 'login', 'trim|required|min_length[3]');
-        $this->form_validation->set_rules('email','email','trim|required|min_length[3]|valid_email');
-        $this->form_validation->set_rules('senha','senha','trim|required|min_length[8]');
-        $this->form_validation->set_rules('senha2','senha','trim|required|min_length[8]|matches[senha]');
-
         if ( !empty($dados_form['name']) && !empty($dados_form['email']) && !empty($dados_form['login']) && !empty($dados_form['senha']) && !empty($dados_form['senha2'])  ) {
 
             if (!isset($dados_form['admin'])){
