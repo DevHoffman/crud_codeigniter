@@ -1,0 +1,20 @@
+Credenciais:
+
+{
+    "login": "hoffman", 
+    "senha": "12345678"
+},
+{
+    "login": "teste", 
+    "senha": "12345678"
+},
+{
+    "login": "thyago.hoffman", 
+    "senha": "12345678"
+},
+
+
+======================================================
+
+O BANCO DE DADOS SE ENCONTRA EM: ./ -> ASSETS -> BANCO DE DADOS
+

@@ -59,7 +59,7 @@ class Usuarios extends CI_Controller {
 	public function datatables() {
 
 		$datatables = $this->datatable->exec(
-			$this->input->post(),
+			$this->input->get(),
 			'tbl_usuarios U',
 			[
 				['db' => 'U.CodiUsuario', 'dt' => 'CodiUsuario'],
